@@ -6,6 +6,7 @@ import androidx.annotation.StringRes
 import `in`.hahow.android_recruit_project.R
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.Duration
+import kotlin.math.abs
 
 data class Course(
     val coverImageUrl: String,
@@ -18,7 +19,7 @@ data class Course(
 ) {
     fun calProgress() = numSoldTickets * 100 / successCriteria.numSoldTickets
 
-    fun calCountDownDay() = Duration.between(proposalDueTime, LocalDateTime.now()).toDays()
+    fun calCountDownDay() = abs(Duration.between(proposalDueTime, LocalDateTime.now()).toDays())
 }
 
 enum class CourseStatus(

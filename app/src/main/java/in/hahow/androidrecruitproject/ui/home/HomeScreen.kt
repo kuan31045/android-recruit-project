@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -31,6 +32,7 @@ import `in`.hahow.androidrecruitproject.ui.navigation.Screen
 import `in`.hahow.androidrecruitproject.util.LoadingStatus
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -38,6 +40,7 @@ import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
@@ -51,6 +54,7 @@ import coil.request.ImageRequest
 import `in`.hahow.android_recruit_project.R
 import `in`.hahow.androidrecruitproject.domain.model.CourseStatus
 import `in`.hahow.androidrecruitproject.util.PreviewData
+import org.threeten.bp.LocalDateTime
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -61,7 +65,10 @@ fun HomeScreen(
     val loadingState = viewModel.loadingState
 
     Scaffold(modifier = modifier.fillMaxSize(), topBar = {
-        TopAppBar(modifier = modifier, title = {
+        TopAppBar(modifier = Modifier.shadow(
+            elevation = 4.dp,
+            spotColor = Color.DarkGray,
+        ), title = {
             Text(text = stringResource(id = Screen.HOME.titleRes))
         })
     }) { innerPadding ->
@@ -85,12 +92,27 @@ fun HomeScreen(
                 }
 
                 is LoadingStatus.Error -> {
-                    Text(
-                        modifier = Modifier.align(Alignment.Center),
-                        text = stringResource(id = loadingState.stringRes)
-                    )
+                    ErrorLayout(modifier = Modifier.align(Alignment.Center),
+                        text = stringResource(id = loadingState.stringRes),
+                        retry = { viewModel.fetchCourses() })
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun ErrorLayout(
+    modifier: Modifier = Modifier, text: String, retry: () -> Unit
+) {
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        Text(text = text, style = MaterialTheme.typography.titleMedium)
+        Button(onClick = retry) {
+            Text(stringResource(id = R.string.retry))
         }
     }
 }
@@ -100,8 +122,9 @@ fun CourseColumn(
     modifier: Modifier = Modifier, courses: List<Course>
 ) {
     LazyColumn(
-        modifier = modifier.padding(top = 8.dp),
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(8.dp),
+        contentPadding = PaddingValues(vertical = 8.dp),
     ) {
         items(items = courses) { course ->
             CourseItem(
@@ -158,27 +181,25 @@ fun CourseItem(
                 //-----Progress Status-----
                 Column(modifier = Modifier.align(Alignment.BottomStart)) {
                     Text(
-                        color = MaterialTheme.colorScheme.outline,
-                        text = when (course.status) {
+                        color = MaterialTheme.colorScheme.outline, text = when (course.status) {
                             CourseStatus.PUBLISHED -> {
                                 stringResource(
-                                    id = R.string.progress_published,
-                                    course.calProgress()
+                                    id = R.string.progress_published, course.calProgress()
                                 )
                             }
 
                             CourseStatus.INCUBATING -> {
                                 stringResource(
                                     id = R.string.progress_incubating,
-                                    course.numSoldTickets, course.successCriteria.numSoldTickets
+                                    course.numSoldTickets,
+                                    course.successCriteria.numSoldTickets
                                 )
                             }
 
                             CourseStatus.SUCCESS -> {
                                 stringResource(id = R.string.progress_success, course.calProgress())
                             }
-                        },
-                        style = MaterialTheme.typography.labelMedium
+                        }, style = MaterialTheme.typography.labelMedium
                     )
                     LinearProgressIndicator(
                         modifier = Modifier
@@ -192,14 +213,20 @@ fun CourseItem(
 
                 //-----Count Down-----
                 if (course.proposalDueTime != null) {
-                    Row(modifier = Modifier.align(Alignment.BottomEnd), verticalAlignment = Alignment.CenterVertically) {
+                    Row(
+                        modifier = Modifier.align(Alignment.BottomEnd),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
                         Icon(
-                            modifier = Modifier.size(20.dp).padding(end = 2.dp) ,
+                            modifier = Modifier
+                                .size(20.dp)
+                                .padding(end = 2.dp),
                             painter = painterResource(id = R.drawable.ic_timer),
-                            contentDescription = null, tint = MaterialTheme.colorScheme.outline)
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.outline
+                        )
                         Text(
-                            text =
-                            if (course.calCountDownDay() < 1) {
+                            text = if (course.proposalDueTime < LocalDateTime.now().plusDays(1)) {
                                 stringResource(id = R.string.coming_soon)
                             } else {
                                 stringResource(id = R.string.count_down, course.calCountDownDay())
@@ -227,7 +254,6 @@ fun CourseCoverLayout(
             error = painterResource(id = R.drawable.ic_broken_image),
             placeholder = painterResource(id = R.drawable.loading_img)
         )
-
         Surface(
             modifier = Modifier.align(Alignment.BottomEnd),
             shape = RoundedCornerShape(topStart = 8.dp),

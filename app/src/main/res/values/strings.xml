@@ -9,4 +9,6 @@
     <string name="progress_success">達標 %1\$d%%</string>
     <string name="count_down">倒數%1\$d天</string>
     <string name="coming_soon">即將開課</string>
+    <string name="fetch_failed">取得資料失敗</string>
+    <string name="retry">重試</string>
 </resources>
