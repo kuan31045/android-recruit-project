@@ -39,6 +39,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
@@ -64,14 +65,21 @@ fun HomeScreen(
     val uiState = viewModel.uiState.collectAsState()
     val loadingState = viewModel.loadingState
 
-    Scaffold(modifier = modifier.fillMaxSize(), topBar = {
-        TopAppBar(modifier = Modifier.shadow(
-            elevation = 4.dp,
-            spotColor = Color.DarkGray,
-        ), title = {
-            Text(text = stringResource(id = Screen.HOME.titleRes))
+    Scaffold(modifier = modifier.fillMaxSize(),
+        topBar = {
+            TopAppBar(
+                modifier = Modifier.shadow(
+                    elevation = 4.dp,
+                    spotColor = Color.DarkGray,
+                ), title = {
+                    Text(text = stringResource(id = Screen.HOME.titleRes))
+                }, colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme
+                        .colorScheme.onPrimary
+                )
+            )
         })
-    }) { innerPadding ->
+    { innerPadding ->
 
         Box(
             modifier = Modifier
