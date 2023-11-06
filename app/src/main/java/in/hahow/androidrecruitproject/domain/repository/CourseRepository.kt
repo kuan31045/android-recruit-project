@@ -5,5 +5,5 @@ import `in`.hahow.androidrecruitproject.domain.model.Course
 
 interface CourseRepository {
 
-    fun fetchCourse(): Result<List<Course>>
+    suspend fun fetchCourse(): Result<List<Course>>
 }
