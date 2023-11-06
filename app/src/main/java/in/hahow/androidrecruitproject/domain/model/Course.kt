@@ -1,19 +1,24 @@
 package `in`.hahow.androidrecruitproject.domain.model
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import `in`.hahow.android_recruit_project.R
-import java.time.LocalDateTime
+import org.threeten.bp.LocalDateTime
+import org.threeten.bp.Duration
 
 data class Course(
     val coverImageUrl: String,
     val numSoldTickets: Int,
-    val proposalDueTime: LocalDateTime,
-    val status: String,
+    val proposalDueTime: LocalDateTime? = null,
+    val status: CourseStatus,
     val successCriteria: SuccessCriteria,
     val title: String,
     val totalVideoLengthInSeconds: Int? = null
 ) {
     fun calProgress() = numSoldTickets * 100 / successCriteria.numSoldTickets
+
+    fun calCountDownDay() = Duration.between(proposalDueTime, LocalDateTime.now()).toDays()
 }
 
 enum class CourseStatus(
