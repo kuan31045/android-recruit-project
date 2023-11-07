@@ -36,7 +36,7 @@
 - [Timber](https://github.com/JakeWharton/timber) - Logger with a small, extensible API
 - [Dagger-Hilt](https://developer.android.com/training/dependency-injection/hilt-android) - Implement dependency injection
 - [Coil](https://github.com/coil-kt/coil) - Image loading for Android backed by Kotlin Coroutines
-- [Gson](https://github.com/google/gson) - A Java serialization/deserialization library to convert Java Objects into JSON and back
+- [Gson](https://github.com/google/gson) - A Java serialization/deserialization library to convert JSON into Java Objects and back
 - [ThreeTenABP:](https://github.com/JakeWharton/ThreeTenABP) - Backport the modern Java 8 java.time API (JSR-310) for older Android devices
 
 ## Architecture & Design Patterns
