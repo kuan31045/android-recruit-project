@@ -30,7 +30,7 @@
 
 ## UI
 * [Jetpack Compose](https://developer.android.com/jetpack/compose) - Build declarative and reusable UI with Kotlin
-* [Material 3](https://m3.material.io/) - Google’s design system for UI components, color, font style, shapes
+* [Material 3](https://m3.material.io/) - Google’s design system for UI components, color, font style, and shapes
   
 ## Libraries
 - [Timber](https://github.com/JakeWharton/timber) - Logger with a small, extensible API
