@@ -26,9 +26,7 @@
 
 ----------
 
-<img src="art/demo.gif" align="right" width="31%"/>
-
-
+<img src="art/demo.gif"  width="31%"/>
 
 ## UI
 * [Jetpack Compose](https://developer.android.com/jetpack/compose) - Build declarative and reusable UI with Kotlin
