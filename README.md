@@ -17,7 +17,7 @@
 - 依照課程當前狀態，顯示不同的標籤
 - 課程標題至多兩行
 - 本題目不用在意卡片尺寸、顏色、間距等細節，請將重點放在如何排版。（你仍然可以盡量符合示意圖）
-<img width="300" alt="CleanShot 2021-12-09 at 10 59 30@2x" src="https://user-images.githubusercontent.com/76472179/145350022-b4624fe0-2612-4fdb-950c-da6898ca4166.png">
+   <img width="300" alt="CleanShot 2021-12-09 at 10 59 30@2x" src="https://user-images.githubusercontent.com/76472179/145350022-b4624fe0-2612-4fdb-950c-da6898ca4166.png">
 
 ## 提交
 
@@ -26,7 +26,7 @@
 
 ----------
 
-<img src="art/demo.gif"  width="31%"/>
+<img src="art/demo.gif" align="right" width="28%"/>
 
 ## UI
 * [Jetpack Compose](https://developer.android.com/jetpack/compose) - Build declarative and reusable UI with Kotlin
