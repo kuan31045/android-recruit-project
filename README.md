@@ -23,3 +23,37 @@
 
 - 請下載或 fork Hahow Android Engineer 面試題目初始專案。
 - 請將成果上傳至 GitHub 並直接提供 repo 連結。
+
+----------
+
+<img src="art/demo.gif" align="right" width="30%"/>
+
+## UI
+* [Jetpack Compose](https://developer.android.com/jetpack/compose) - Build declarative and reusable UI with Kotlin
+* [Material 3](https://m3.material.io/) - Google’s design system for UI components, color, font style, shapes
+  
+## Libraries
+- [Timber](https://github.com/JakeWharton/timber) - Logger with a small, extensible API
+- [Dagger-Hilt](https://developer.android.com/training/dependency-injection/hilt-android) - Implement dependency injection
+- [Coil](https://github.com/coil-kt/coil) - Image loading for Android backed by Kotlin Coroutines
+- [Gson](https://github.com/google/gson) - A Java serialization/deserialization library to convert Java Objects into JSON and back
+- [ThreeTenABP:](https://github.com/JakeWharton/ThreeTenABP) - Backport the modern Java 8 java.time API (JSR-310) for older Android devices
+
+## Architecture & Design Patterns
+### UI layer
+- **ViewModel**: Fetch data from higher layers, update UI State(StateFlow) and handle UI events
+- **Composeable Screen**: Collect UI state from ViewModel as an immutable state, then pass it down to composable widgets for displaying the UI. Invoke ViewModel's function when a UI event occurs
+
+### Domain layer
+- **Domain Model**: Data classes that are representing real-world concepts for the user
+- **Repository Interface**: Define a contract for data access and provide methods for retrieving
+
+### Data layer
+- **RepositoryImpl**: Implement the repository interface methods from domain layer
+- **DTO Model**: Data classes that hold data retrieved from the data source
+- **MockAssetManager**: Provide fake JSON data
+
+### UDF(Unidirectional Data Flow) pattern
+- An one-way data flow pattern where data flows down and events flow up
+  
+<img src='art/data.png' width='60%'/>   <img src = 'art/event.png' width='60%'/>
